@@ -17,7 +17,7 @@ int main()
     HANDLE _hPipe = CreateNamedPipe(full_pipe_name.c_str(), //name kanala
                                     PIPE_ACCESS_DUPLEX, // razresh dostup na reaad and write
                                     PIPE_TYPE_MESSAGE | 
-									PIPE_READMODE_MESSAGE,
+				    PIPE_READMODE_MESSAGE,
                                     PIPE_UNLIMITED_INSTANCES, //chislo exempl kanalov ne ogranicheno
                                     MAX_BUFFER_SIZE,
                                     MAX_BUFFER_SIZE,
@@ -30,7 +30,7 @@ int main()
 
     //waiting for connection and zaprosi clienta
     std::string command (MAX_BUFFER_SIZE, '\0');
-    std::string keyword,key,value,response {};
+    std::string cmnd,key,value,response {};
     DWORD bytes;
     std::map<std::string, std::string> dict {};
     while (true)
@@ -43,7 +43,7 @@ int main()
         }
         else
         {
-           std::cout << "connection succeeded"<<'\n';;
+           std::cout << "connection successful"<<'\n';;
         }
        while(true)
        {
@@ -92,6 +92,8 @@ int main()
             else if (cmnd == "quit") //end seans
             {
                 DisconnectNamedPipe(pipe_y);
+		command.replace(0, command.size(), command.size(), '\0');
+                command.resize(MAX_BUFFER_SIZE, '\0');
                 break;
             }
              WriteFile(_hPipe, response.c_str(), response.size(), &bytes, NULL);
