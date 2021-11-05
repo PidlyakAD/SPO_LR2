@@ -15,12 +15,12 @@ int main()
 
     HANDLE _hPipe = CreateFile(full_pipe_name.c_str(),
                                GENERIC_READ | 
-							   GENERIC_WRITE,
+			       GENERIC_WRITE,
                                0,
-                               nullptr,
+                               NULL,
                                OPEN_EXISTING,
                                FILE_ATTRIBUTE_NORMAL,
-                               nullptr);
+                               NULL);
 
     if (_hPipe == INVALID_HANDLE_VALUE)
     {
